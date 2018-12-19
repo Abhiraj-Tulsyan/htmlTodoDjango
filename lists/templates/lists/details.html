@@ -1,0 +1,28 @@
+<h1>Welcome to {{ todolist.title}} todolist</h1>
+
+{%if todolist.todo_set.count > 0%}
+<h4>list of todo to sort out</h4>
+<table>
+	
+		<td>Todo</td>
+		<td>Description</td>
+	<td>delete</td>
+{%for x in todolist.todo_set.all %}
+ <tr>
+ <td>{{x}}</td>
+<td>{{x.description}}</td>
+<td><form method="POST" action="{% url 'lists:delete_todo' todolist.id %}">
+	{%csrf_token%}
+	<input type='hidden' name='xname' value='{{x.id}}'>
+	<input type="submit" value='delete'> </form>
+</td>
+</tr>
+{%endfor%}
+</table>
+{%endif%}
+<form method="POST" action="{% url 'lists:add_todo' todolist.id %}">
+	{%csrf_token%}
+	{{form}}
+	<br>
+	<input type="submit" value="Add todo">
+</form>

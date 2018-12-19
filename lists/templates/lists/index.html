@@ -1,0 +1,24 @@
+<h1>Welcome</h1>
+
+
+
+ <h3>list of todolists</h3>
+ <ul>
+ 	{% for todo in Todolist %}
+ 	<li> 
+ 		<a href="{% url 'lists:details' todo.id %} "> {{todo}} </a>
+ 		<form method='POST' action="{% url 'lists:delete_todolist'  todo.id %}">
+ 			{%csrf_token%}
+         <input type="submit" value='delete'>
+ 		</form>
+    </li> 	
+{%endfor%}
+</ul>
+
+
+<form action="{% url 'lists:add_todolist'  %}" method="POST">
+ {% csrf_token %}
+ {{ Todoform }}
+ <input type="submit" name="submit" value="Add form">
+</form>
+
